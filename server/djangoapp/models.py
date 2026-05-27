@@ -9,9 +9,9 @@ class CarMake(models.Model):
     name = models.CharField(max_length=75)
     description = models.TextField(max_length=500)
 
+
     def __str__(self):
         return self.name  # Return the name as the string representation
-
 
 
 # <HINT> Create a Car Model model `class CarModel(models.Model):`:
