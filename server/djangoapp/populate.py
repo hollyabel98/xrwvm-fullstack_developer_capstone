@@ -59,19 +59,19 @@ for data in car_make_data:
         },
         {
             "name": "A4",
-            "type":"SUV",
+            "type": "SUV",
             "year": 2023,
             "car_make": car_make_instances[2]
         },
         {
             "name": "A5",
-            "type":"SUV",
+            "type": "SUV",
             "year": 2023,
             "car_make": car_make_instances[2]
         },
         {
             "name": "A6",
-            "type":"SUV",
+            "type": "SUV",
             "year": 2023,
             "car_make": car_make_instances[2]
         },
@@ -114,5 +114,10 @@ for data in car_make_data:
         # Add more CarModel instances as needed
     ]
 
-    for data in car_model_data:
-            CarModel.objects.create(name=data['name'], car_make=data['car_make'], type=data['type'], year=data['year'])
+for data in car_model_data:
+    CarModel.objects.create(
+        name=data['name'],
+        car_make=data['car_make'],
+        type=data['type'],
+        year=data['year']
+    )
