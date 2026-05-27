@@ -1,11 +1,11 @@
 # Uncomment the required imports before adding the code
 
-from django.shortcuts import render
+# from django.shortcuts import render
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 # from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
-from django.contrib import messages
+# from django.contrib import messages
 # from datetime import datetime
 from .models import CarMake, CarModel
 from .restapis import get_request, analyze_review_sentiments, post_review
@@ -43,8 +43,8 @@ def login_user(request):
 
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
-    logout(request) # Terminate user session
-    data = {"userName": ""} # Return empty username
+    logout(request)  # Terminate user session
+    data = {"userName": ""}  # Return empty username
     return JsonResponse(data)
 
 
@@ -52,7 +52,6 @@ def logout_request(request):
 @csrf_exempt
 def registration(request):
     context = {}
-
 	# Load JSON data from the request body
     data = json.loads(request.body)
     username = data['userName']
@@ -73,10 +72,12 @@ def registration(request):
     # If it is a new user
     if not username_exist:
         # Create user in auth_user table
-        user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,password=password, email=email)
+        user = User.objects.create_user(
+            username=username, first_name=first_name, last_name=last_name, password=password, email=email
+            )
         # Login the user and redirect to list page
         login(request, user)
-        data = {"userName": username,"status": "Authenticated"}
+        data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)
     else :
         data = {"userName": username,"error": "Already Registered"}
@@ -130,9 +131,9 @@ def get_dealer_details(request, dealer_id):
 
 # Create a `add_review` view to submit a review
 def add_review(request):
-    if(request.user.is_anonymous == False):
+    if not cond(request.user.is_anonymous == False):
         data = json.loads(request.body)
-        try:
+    try:
             response = post_review(data)
             return JsonResponse({"status":200})
         except:

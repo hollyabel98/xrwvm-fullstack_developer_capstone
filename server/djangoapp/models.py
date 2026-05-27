@@ -4,11 +4,11 @@ from django.db import models
 # from django.utils.timezone import now
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
 # <HINT> Create a Car Make model `class CarMake(models.Model)`:
 class CarMake(models.Model):
     name = models.CharField(max_length=75)
     description = models.TextField(max_length=500)
-
 
     def __str__(self):
         return self.name  # Return the name as the string representation
