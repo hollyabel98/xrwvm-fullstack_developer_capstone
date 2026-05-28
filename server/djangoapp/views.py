@@ -52,7 +52,7 @@ def logout_request(request):
 # Create a `registration` view to handle sign up request
 @csrf_exempt
 def registration(request):
-    context = {}
+# context = {}
 # Load JSON data from the request body
     data = json.loads(request.body)
     username = data['userName']
@@ -66,22 +66,30 @@ def registration(request):
         # Check if user already exists
         User.objects.get(username=username)
         username_exist = True
-    except:
+    except Exception as e:
         # If not, simply log this is a new user
         logger.debug("{} is new user".format(username))
 
     # If it is a new user
-    if not username_exist:
+    if not username_exist and not email_exist:
         # Create user in auth_user table
         user = User.objects.create_user(
-            username=username, first_name=first_name, last_name=last_name, password=password, email=email
-            )
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            password=password,
+            email=email
+        )
         # Login the user and redirect to list page
         login(request, user)
         data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)
     else :
-        data = {"userName": username,"error": "Already Registered"}
+        data = {
+            "userName" : username,
+            "email" : email,
+            "error" : "Already Registered"
+        }
         return JsonResponse(data)
 
 # get the list of cars
@@ -106,6 +114,7 @@ def get_dealerships(request, state="All"):
         endpoint = "/fetchDealers/"+state
     dealerships = get_request(endpoint)
     return JsonResponse({"status":200, "dealers": dealerships})
+
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 def get_dealer_reviews(request, dealer_id):
@@ -136,8 +145,8 @@ def add_review(request):
         try:
             data = json.loads(request.body)
             response = post_review(data)
-            return JsonResponse({"status": 200})
-        except:
+            return JsonResponse({"status": 200, "data: responseta"})
+        except Exception as e:
             return JsonResponse(
                 {
                     "status": 401,
