@@ -18,7 +18,6 @@ def initiate():
                 description=data['description'],
             )
         )
-    return car_make_instances
 
 # Create CarModel instances with the corresponding CarMake instances
 car_model_data = [
@@ -112,7 +111,6 @@ car_model_data = [
         "year": 2023,
         "car_make": car_make_instances[4]
     },
-    # Add more CarModel instances as needed
 ]
 
 for data in car_model_data:
