@@ -1,5 +1,6 @@
 from .models import CarMake, CarModel
 
+
 def initiate():
     car_make_data = [
         {"name": "NISSAN", "description": "Great cars. Japanese technology"},
@@ -18,6 +19,7 @@ for data in car_make_data:
             description=data['description'],
         )
     )
+return car_make_instances
 
     # Create CarModel instances with the corresponding CarMake instances
     car_model_data = [

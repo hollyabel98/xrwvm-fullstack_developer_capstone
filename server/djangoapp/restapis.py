@@ -25,6 +25,7 @@ if (kwargs):
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
 return response.json()
+
     except:
         # If any error occurs
         print("Network exception occurred")
