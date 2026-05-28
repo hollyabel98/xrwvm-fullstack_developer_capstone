@@ -111,7 +111,7 @@ def get_cars(request):
     return JsonResponse({"CarModels": cars})
 
 
-def get_dealerships (request, state="All"):
+def get_dealerships(request, state="All"):
     if (state == "All"):
         endpoint = "/fetchDealers"
     else:
