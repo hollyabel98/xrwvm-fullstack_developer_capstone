@@ -34,7 +34,8 @@ ALLOWED_HOSTS = [
     'cognitiveclass.ai',
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://hollyabel-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.'
+    'https://hollyabel-8000.'
+    'theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.'
     'cognitiveclass.ai',
 ]
 
