@@ -41,6 +41,7 @@ def login_user(request):
         data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(data)
 
+
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
     logout(request)  # Terminate user session
@@ -52,7 +53,7 @@ def logout_request(request):
 @csrf_exempt
 def registration(request):
     context = {}
-	# Load JSON data from the request body
+# Load JSON data from the request body
     data = json.loads(request.body)
     username = data['userName']
     password = data['password']
@@ -83,7 +84,7 @@ def registration(request):
         data = {"userName": username,"error": "Already Registered"}
         return JsonResponse(data)
 
-#get the list of cars
+# get the list of cars
 def get_cars(request):
     count = CarMake.objects.filter().count()
     print(count)
@@ -97,7 +98,7 @@ def get_cars(request):
 
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
-#Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
+# Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
 def get_dealerships(request, state="All"):
     if(state == "All"):
         endpoint = "/fetchDealers"
@@ -131,12 +132,17 @@ def get_dealer_details(request, dealer_id):
 
 # Create a `add_review` view to submit a review
 def add_review(request):
-    if not cond(request.user.is_anonymous == False):
-        data = json.loads(request.body)
-    try:
+    if not request.user.is_anonymous:
+        try:
+            data = json.loads(request.body)
             response = post_review(data)
-            return JsonResponse({"status":200})
+            return JsonResponse({"status": 200})
     except:
-            return JsonResponse({"status":401,"message": "Error in posting review"})
+        return JsonResponse(
+            {
+                "status": 401,
+                "message": "Error in posting review"
+            }
+        )
     else:
-        return JsonResponse({"status":403,"message": "Unauthorized"})
+        return JsonResponse({"status": 403, "message": "Unauthorized"})
